@@ -7,6 +7,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.List;
+
 public class HomePage {
     private WebDriver _driver;
 
@@ -15,6 +17,15 @@ public class HomePage {
 
     @FindBy(how=How.ID, using="nameofuser")
     WebElement username;
+
+    @FindBy(how=How.CLASS_NAME, using="list-group-item")
+    List<WebElement> categories;
+
+    @FindBy(how=How.CLASS_NAME, using="nav-link")
+    List<WebElement> navBar;
+
+    @FindBy(how=How.CLASS_NAME, using="hrefch")
+    List<WebElement> itemList;
 
     public HomePage(WebDriver driver) {
         this._driver = driver;
@@ -31,5 +42,32 @@ public class HomePage {
 
     public String getUsername() {
         return username.getText();
+    }
+
+    public void clickCategory(String category) {
+        for (WebElement cat : categories) {
+            if (cat.getText().contains(category)) {
+                cat.click();
+                break;
+            }
+        }
+    }
+
+    public void clickItem(String itemName) {
+        for (WebElement item : itemList) {
+            if (item.getText().contains(itemName)) {
+                item.click();
+                break;
+            }
+        }
+    }
+
+    public void clickNavbarElement(String element) {
+        for (WebElement el : navBar) {
+            if (el.getText().equals(element)) {
+                el.click();
+                break;
+            }
+        }
     }
 }
