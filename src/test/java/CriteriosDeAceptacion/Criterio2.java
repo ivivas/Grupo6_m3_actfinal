@@ -3,10 +3,8 @@ package CriteriosDeAceptacion;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.HomePage;
 import pages.LoginModal;
 
@@ -14,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class Criterio2 {
     private WebDriver _driver;
-    private String _HOMEPAGE = "https://www.demoblaze.com/index.html";
+    private String _HOMEPAGE_URL = "https://www.demoblaze.com/index.html";
     private String _USERNAME = "Master_Grupo6";
     private String _PASSWORD = "1234";
 
@@ -22,6 +20,7 @@ public class Criterio2 {
     public void Setup() {
         System.setProperty("webdriver.chrome.driver", "src/test/resources/drivers/windows/chrome/chromedriver.exe");
         _driver = new ChromeDriver();
+        _driver.manage().window().maximize();
     }
 
     @Test
@@ -29,7 +28,7 @@ public class Criterio2 {
     public void criterio2() throws InterruptedException {
         //GIVEN
         HomePage homePage = new HomePage(_driver);
-        homePage.getHomePage(_HOMEPAGE);
+        homePage.getHomePage(_HOMEPAGE_URL);
         LoginModal loginmodal = new LoginModal(_driver);
 
         //WHEN
