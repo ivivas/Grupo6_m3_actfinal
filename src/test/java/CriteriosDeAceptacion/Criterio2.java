@@ -10,14 +10,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.HomePage;
 import pages.LoginModal;
 
-import java.time.Duration;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class Criterio2 {
     private WebDriver _driver;
-    private WebDriverWait _wait;
-    private JavascriptExecutor _js;
     private String _HOMEPAGE = "https://www.demoblaze.com/index.html";
     private String _USERNAME = "Master_Grupo6";
     private String _PASSWORD = "1234";
@@ -26,8 +22,6 @@ public class Criterio2 {
     public void Setup() {
         System.setProperty("webdriver.chrome.driver", "src/test/resources/drivers/windows/chrome/chromedriver.exe");
         _driver = new ChromeDriver();
-        _wait = new WebDriverWait(_driver, Duration.ofSeconds(5));
-        _js = (JavascriptExecutor)_driver;
     }
 
     @Test
@@ -47,7 +41,7 @@ public class Criterio2 {
         loginmodal.clickLoginBtn();
 
         //THEN
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         String username = homePage.getUsername();
         assertThat(username).containsIgnoringCase("Welcome " + _USERNAME);
     }
