@@ -4,10 +4,14 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import pages.CartPage;
 import pages.HomePage;
 import pages.ProductPage;
 
 import java.awt.*;
+import java.util.ArrayList;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class Criterio4 {
     private WebDriver _driver;
@@ -30,6 +34,7 @@ public class Criterio4 {
         HomePage homePage = new HomePage(_driver);
         homePage.getHomePage(_HOMEPAGE_URL);
         ProductPage productPage = new ProductPage(_driver);
+        CartPage cartPage = new CartPage(_driver);
 
         //WHEN
         // Add item 1 to cart
@@ -44,7 +49,6 @@ public class Criterio4 {
         Thread.sleep(2000);
         homePage.clickItem(item2);
         productPage.waitContent();
-        Thread.sleep(2000);
         productPage.clickAddToCartBtn();
         Thread.sleep(2000);
 
@@ -55,5 +59,18 @@ public class Criterio4 {
         productPage.waitContent();
         Thread.sleep(2000);
         productPage.clickAddToCartBtn();
+
+        //THEN
+        homePage.clickNavbarElement("Cart");
+        cartPage.waitContent();
+        ArrayList<String> cartItems = cartPage.getCartItems();
+        int count = 0;
+        for (String item : cartItems) {
+            if (item.contains(item1) || item.contains(item2) || item.contains(item3)) {
+                count++;
+            }
+        }
+        assertThat(count).isEqualTo(3);
+
     }
 }

@@ -34,8 +34,9 @@ public class ProductPage {
         PageFactory.initElements(_driver, this);
     }
 
-    public void waitContent() {
+    public void waitContent() throws InterruptedException {
         _wait.until(ExpectedConditions.visibilityOf(productContent));
+        Thread.sleep(2000);
     }
 
     public void clickAddToCartBtn() throws InterruptedException {

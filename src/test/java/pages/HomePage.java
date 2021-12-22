@@ -46,7 +46,6 @@ public class HomePage {
 
     public void clickCategory(String category) {
         for (WebElement cat : categories) {
-            System.out.println(cat);
             if (cat.getText().contains(category)) {
                 cat.click();
                 break;
