@@ -11,6 +11,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,7 @@ import java.util.List;
 public class CartPage {
     private WebDriver _driver;
     private WebDriverWait _wait;
+    private JavascriptExecutor _js;
 
     @FindBy(how= How.ID, using="page-wrapper")
     WebElement cartContent;
@@ -25,9 +27,13 @@ public class CartPage {
     @FindBy(how= How.CSS, using="td:nth-child(2)")
     List<WebElement> cartList;
 
+    @FindBy(how= How.CLASS_NAME, using="success")
+    List<WebElement> cartElements;
+
     public CartPage(WebDriver driver) {
         this._driver = driver;
         this._wait = new WebDriverWait(_driver, Duration.ofSeconds(5));
+        this._js = (JavascriptExecutor)_driver;
         PageFactory.initElements(_driver, this);
     }
 
@@ -43,5 +49,20 @@ public class CartPage {
         }
 
         return cartItems;
+    }
+
+    public void deleteItemFromCart(String itemName) {
+        for (WebElement el : cartElements) {
+            if (el.getText().contains(itemName)) {
+                el.findElement(By.cssSelector("td:nth-child(4) a")).click();
+                break;
+            }
+
+        }
+    }
+
+    public void clickPlaceOrderBtn() throws InterruptedException {
+        _js.executeScript("document.getElementsByClassName(\"btn-success\")[0].click();");
+        Thread.sleep(1000);
     }
 }
