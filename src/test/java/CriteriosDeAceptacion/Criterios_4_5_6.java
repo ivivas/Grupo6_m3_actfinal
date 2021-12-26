@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class Criterio4 {
+public class Criterios_4_5_6 {
     private WebDriver _driver;
     private String _HOMEPAGE_URL = "https://www.demoblaze.com/index.html";
 
@@ -25,8 +25,7 @@ public class Criterio4 {
     }
 
     @Test
-    // COMO usuario QUIERO añadir al carrito un Samsung galaxy s7, Samsung galaxy s6 y un Sony vaio i7.
-    public void criterio4() throws InterruptedException, AWTException {
+    public void criterios_4_5_6() throws InterruptedException, AWTException {
         //GIVEN
         String item1 = "galaxy s7";
         String item2 = "galaxy s6";
@@ -57,10 +56,10 @@ public class Criterio4 {
         Thread.sleep(2000);
         homePage.clickItem(item3);
         productPage.waitContent();
-        Thread.sleep(2000);
         productPage.clickAddToCartBtn();
 
-        //THEN
+        //THEN: Criterio 4:
+        // COMO usuario QUIERO añadir al carrito un Samsung galaxy s7, Samsung galaxy s6 y un Sony vaio i7.
         homePage.clickNavbarElement("Cart");
         cartPage.waitContent();
         ArrayList<String> cartItems = cartPage.getCartItems();
@@ -72,5 +71,23 @@ public class Criterio4 {
         }
         assertThat(count).isEqualTo(3);
 
+        // THEN: Criterio 5:
+        // COMO usuario QUIERO eliminar del carrito el Samsung galaxy s6.
+        cartPage.deleteItemFromCart(item2);
+        cartPage.waitContent();
+        ArrayList<String> cartItems2 = cartPage.getCartItems();
+        int count2 = 0;
+        for (String item : cartItems2) {
+            System.out.println(item);
+            if (item.contains(item1) || item.contains(item3)) {
+                count2++;
+            }
+        }
+        assertThat(count2).isEqualTo(2);
+    }
+
+    //@After
+    public void tearDown() {
+        _driver.quit();
     }
 }
