@@ -44,16 +44,17 @@ public class HomePage {
         return username.getText();
     }
 
-    public void clickCategory(String category) {
+    public void clickCategory(String category) throws InterruptedException {
         for (WebElement cat : categories) {
             if (cat.getText().contains(category)) {
                 cat.click();
                 break;
             }
         }
+        Thread.sleep(2000);
     }
 
-    public void clickItem(String itemName) {
+    public void clickItem(String itemName) throws InterruptedException {
         for (WebElement item : itemList) {
             if (item.getText().contains(itemName)) {
                 item.click();

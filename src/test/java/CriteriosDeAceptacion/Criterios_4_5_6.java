@@ -1,5 +1,6 @@
 package CriteriosDeAceptacion;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
@@ -40,10 +41,8 @@ public class Criterios_4_5_6 {
         //WHEN
         // Add item 1 to cart
         homePage.clickCategory("Phones");
-        Thread.sleep(2000);
         homePage.clickItem(item1);
         productPage.waitContent();
-        Thread.sleep(2000);
         productPage.clickAddToCartBtn();
 
         // Add item 2 to cart
@@ -51,7 +50,6 @@ public class Criterios_4_5_6 {
         homePage.clickItem(item2);
         productPage.waitContent();
         productPage.clickAddToCartBtn();
-        Thread.sleep(2000);
 
         // Add item 3 to cart
         homePage.clickCategory("Laptops");
@@ -62,6 +60,7 @@ public class Criterios_4_5_6 {
 
         //THEN: Criterio 4:
         // COMO usuario QUIERO añadir al carrito un Samsung galaxy s7, Samsung galaxy s6 y un Sony vaio i7.
+        Thread.sleep(1000);
         homePage.clickNavbarElement("Cart");
         cartPage.waitContent();
         ArrayList<String> cartItems = cartPage.getCartItems();
@@ -75,6 +74,7 @@ public class Criterios_4_5_6 {
 
         // THEN: Criterio 5:
         // COMO usuario QUIERO eliminar del carrito el Samsung galaxy s6.
+        Thread.sleep(1000);
         cartPage.deleteItemFromCart(item2);
         cartPage.waitContent();
         ArrayList<String> cartItems2 = cartPage.getCartItems();
@@ -101,7 +101,7 @@ public class Criterios_4_5_6 {
         assertThat(alertText).containsIgnoringCase("Thank you for your purchase");
     }
 
-    //@After
+    @After
     public void tearDown() {
         _driver.quit();
     }
