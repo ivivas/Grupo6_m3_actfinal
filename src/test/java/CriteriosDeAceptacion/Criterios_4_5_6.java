@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import pages.CartPage;
 import pages.HomePage;
+import pages.PlaceOrderModal;
 import pages.ProductPage;
 
 import java.awt.*;
@@ -34,6 +35,7 @@ public class Criterios_4_5_6 {
         homePage.getHomePage(_HOMEPAGE_URL);
         ProductPage productPage = new ProductPage(_driver);
         CartPage cartPage = new CartPage(_driver);
+        PlaceOrderModal orderModal = new PlaceOrderModal(_driver);
 
         //WHEN
         // Add item 1 to cart
@@ -78,12 +80,25 @@ public class Criterios_4_5_6 {
         ArrayList<String> cartItems2 = cartPage.getCartItems();
         int count2 = 0;
         for (String item : cartItems2) {
-            System.out.println(item);
             if (item.contains(item1) || item.contains(item3)) {
                 count2++;
             }
         }
         assertThat(count2).isEqualTo(2);
+
+        // THEN: Criterio 6:
+        // COMO usuario QUIERO realizar el pedido de los artículos seleccionados.
+        cartPage.clickPlaceOrderBtn();
+        orderModal.waitContent();
+        orderModal.setName("Ivan");
+        orderModal.setCountry("Chile");
+        orderModal.setCity("Santiago");
+        orderModal.setCard("0000 1111 2222 3333");
+        orderModal.setMonth("Diciembre");
+        orderModal.setYear("2021");
+        orderModal.clickPurchaseBtn();
+        String alertText = orderModal.getPurchaseAlertText();
+        assertThat(alertText).containsIgnoringCase("Thank you for your purchase");
     }
 
     //@After
