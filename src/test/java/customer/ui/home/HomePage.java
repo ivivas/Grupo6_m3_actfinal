@@ -31,7 +31,7 @@ public class HomePage extends PageObject {
       }
     };
 
-    //------------------- NO BDD ------------------
+    //------------------- NO ACTIONS ------------------
 
 
 
