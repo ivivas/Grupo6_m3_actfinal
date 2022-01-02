@@ -15,10 +15,10 @@ de aceptación necesarios.
 
 la implementacion de estos criterios de aceptacion
 se han realizado siguiendo dos metodos
-* El primero, consta de utilizar el patron page model
+* El primero, consta de utilizar el patron page object model
 separando las acciones de la interfaz entre la pagina web
 y el codigo de testing
-* El segundo es utilizar directamente page model dejando 
+* El segundo es utilizar directamente page object model dejando 
 las acciones embebidas en la interfaz de comunicacion con la web
 
   
