@@ -1,4 +1,4 @@
-package customer.browseSteps;
+package customer;
 
 import customer.actions.AuthActions;
 import customer.actions.NavigationActions;

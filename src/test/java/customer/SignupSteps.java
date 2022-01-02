@@ -1,4 +1,4 @@
-package customer.signupSteps;
+package customer;
 
 import customer.actions.AuthActions;
 import customer.actions.NavigationActions;
@@ -28,7 +28,8 @@ public class SignupSteps {
         authenticationActions.typeUsernameAndPassword(string,string2);
     }
     @Then("I should see a success message")
-    public void i_should_see_a_success_message() {
+    public void i_should_see_a_success_message() throws InterruptedException {
+        Thread.sleep(1000);
         assertThat(navigationActions.retrieveAlertMessage()).isIn("This user already exist.","Sign up successful.");
     }
 
