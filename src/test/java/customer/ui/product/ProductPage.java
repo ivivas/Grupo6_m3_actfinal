@@ -1,5 +1,6 @@
-package pages;
+package customer.ui.product;
 
+import net.serenitybdd.core.pages.PageObject;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -14,8 +15,7 @@ import java.awt.event.KeyEvent;
 import java.time.Duration;
 import java.util.List;
 
-public class ProductPage {
-    private WebDriver _driver;
+public class ProductPage extends PageObject {
     private WebDriverWait _wait;
     private JavascriptExecutor _js;
     private Robot _robot;
@@ -26,12 +26,11 @@ public class ProductPage {
     @FindBy(how=How.CLASS_NAME, using="nav-link")
     List<WebElement> navBar;
 
-    public ProductPage(WebDriver driver) throws AWTException {
-        this._driver = driver;
-        this._wait = new WebDriverWait(_driver, Duration.ofSeconds(5));
-        this._js = (JavascriptExecutor)_driver;
+    public ProductPage() throws AWTException {
+        this._wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
+        this._js = (JavascriptExecutor)getDriver();
         this._robot = new Robot();
-        PageFactory.initElements(_driver, this);
+        PageFactory.initElements(getDriver(), this);
     }
 
     public void waitContent() throws InterruptedException {

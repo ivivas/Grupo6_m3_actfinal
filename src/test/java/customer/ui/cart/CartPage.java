@@ -1,5 +1,6 @@
-package pages;
+package customer.ui.cart;
 
+import net.serenitybdd.core.pages.PageObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -10,14 +11,11 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CartPage {
-    private WebDriver _driver;
+public class CartPage extends PageObject {
     private WebDriverWait _wait;
     private JavascriptExecutor _js;
 
@@ -30,11 +28,10 @@ public class CartPage {
     @FindBy(how= How.CLASS_NAME, using="success")
     List<WebElement> cartElements;
 
-    public CartPage(WebDriver driver) {
-        this._driver = driver;
-        this._wait = new WebDriverWait(_driver, Duration.ofSeconds(5));
-        this._js = (JavascriptExecutor)_driver;
-        PageFactory.initElements(_driver, this);
+    public CartPage() {
+        this._wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
+        this._js = (JavascriptExecutor)getDriver();
+        PageFactory.initElements(getDriver(), this);
     }
 
     public void waitContent() throws InterruptedException {

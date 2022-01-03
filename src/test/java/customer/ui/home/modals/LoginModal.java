@@ -1,5 +1,6 @@
-package pages;
+package customer.ui.home.modals;
 
+import net.serenitybdd.core.pages.PageObject;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -11,8 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class LoginModal {
-    private WebDriver _driver;
+public class LoginModal extends PageObject {
     private WebDriverWait _wait;
     private JavascriptExecutor _js;
 
@@ -28,11 +28,10 @@ public class LoginModal {
     @FindBy(how= How.CLASS_NAME, using="btn-primary")
     WebElement loginSubmitBtn;
 
-    public LoginModal(WebDriver driver) {
-        this._driver = driver;
-        this._wait = new WebDriverWait(_driver, Duration.ofSeconds(5));
-        this._js = (JavascriptExecutor)_driver;
-        PageFactory.initElements(_driver, this);
+    public LoginModal() {
+        this._wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
+        this._js = (JavascriptExecutor)getDriver();
+        PageFactory.initElements(getDriver(), this);
     }
 
     public void waitContent() {
@@ -50,4 +49,6 @@ public class LoginModal {
     public void clickLoginBtn() {
         _js.executeScript("document.getElementsByClassName(\"btn-primary\")[2].click();");
     }
+
+
 }

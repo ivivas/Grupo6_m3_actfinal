@@ -1,18 +1,41 @@
-package pages;
+package customer.ui.home;
 
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import net.serenitybdd.core.pages.PageObject;
+import org.openqa.selenium.*;
+import net.thucydides.core.annotations.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 
-public class HomePage {
-    private WebDriver _driver;
+@DefaultUrl("https://www.demoblaze.com")
+public class HomePage extends PageObject {
 
-    @FindBy(how=How.ID, using="login2")
+    public static final By SIGNUP_MODAL = By.id("signInModal");
+    public  static final By SIGNUP_BTN_ACTIVATE = By.id("signin2");
+    public  static final By SIGNUP_BTN_ACCEPT = By.xpath("//*[@id=\"signInModal\"]/div/div/div[3]/button[2]");
+
+    public  static final By SIGNUP_FIELD_USERNAME = By.id("sign-username");
+    public  static final By SIGNUP_FIELD_PASSWORD = By.id("sign-password");
+
+    public static final By PRODUCTS = By.className("card");
+
+
+    public static final By category(CategoriesEnum category ) throws Exception {
+      switch (category){
+          case PHONES -> { return By.xpath("/html/body/div[5]/div/div[1]/div/a[2]");}
+          case LAPTOPS -> { return By.xpath("/html/body/div[5]/div/div[1]/div/a[3]"); }
+          case MONITORS -> { return By.xpath("/html/body/div[5]/div/div[1]/div/a[4]"); }
+          default -> { throw new Exception("Not existent category");}
+      }
+    };
+
+    //------------------- NO ACTIONS ------------------
+
+
+
+    @FindBy(how= How.ID, using="login2")
     WebElement loginBtn;
 
     @FindBy(how=How.ID, using="nameofuser")
@@ -27,15 +50,15 @@ public class HomePage {
     @FindBy(how=How.CLASS_NAME, using="hrefch")
     List<WebElement> itemList;
 
-    public HomePage(WebDriver driver) {
-        this._driver = driver;
-        PageFactory.initElements(_driver, this);
+    public HomePage() {
+        //this._driver = driver;
+        PageFactory.initElements(getDriver(), this);
     }
 
-    public void getHomePage(String url) {
+   /* public void getHomePage(String url) {
         this._driver.get(url);
     }
-
+*/
     public void loginBtnClick() {
         loginBtn.click();
     }
@@ -71,4 +94,9 @@ public class HomePage {
             }
         }
     }
+
+
+
+
+
 }
